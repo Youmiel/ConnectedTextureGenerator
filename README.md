@@ -1,5 +1,5 @@
 # ConnectedTextureGenerator
-A java program for creating connected glass texture for [Youmiel/ConnectedTexture1.14](https://github.com/Youmiel/ConnectedGlass1.14).<p>
+A java program for creating connected glass texture for [Youmiel/ConnectedGlass1.14](https://github.com/Youmiel/ConnectedGlass1.14).<p>
 You can use it to create connected glass texture for other resourcepacks(e.g. programmer-art resourcepack).
 ## Usage
 1. Clone this repository (it is a Maven project).
