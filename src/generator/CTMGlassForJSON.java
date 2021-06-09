@@ -8,7 +8,6 @@ public class CTMGlassForJSON {
 	  
 	  @JSONField(name = "ctm", ordinal = 2)
 	  public CTMContent ctm = new CTMContent();
-	  
 	  class CTMContent{
 		  @JSONField(name = "ctm_version", ordinal = 1)
 		  public int version = 1;
@@ -21,6 +20,13 @@ public class CTMGlassForJSON {
 		  
 		  @JSONField(name = "textures", ordinal = 4)
 		  public String[] textures = new String[1];
+		  
+		  @JSONField(name = "extra", ordinal = 5)
+		  public ExtraField extra = new ExtraField();
+		  class ExtraField{
+			  @JSONField(name = "ignore_states", ordinal = 1)
+			  public boolean igore_states = true;
+		  }
 	  }
 	  
 	  public void setTexture(String texturePath) {
@@ -36,5 +42,8 @@ public class CTMGlassForJSON {
         "textures":[
             "minecraft:blocks/glass_green_ctm"
         ]
+        "extra":{
+        	"ignore_states":true
+        	}
     }
  */
