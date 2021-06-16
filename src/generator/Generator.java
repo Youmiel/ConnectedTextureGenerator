@@ -25,7 +25,7 @@ public class Generator {
 	String sourceName;
 	CTMGlassForJSON json = new CTMGlassForJSON();
 	
-	protected static final byte SIZE = 16;
+	//protected static final byte SIZE = 16;
 	
 	protected static final String TEXTURE_PATH = "block/ctm/";
 	protected static final String INPUT_PATH = "resources/input/";
@@ -46,17 +46,23 @@ public class Generator {
 		this.json.setTexture(TEXTURE_PATH + sourceName + "_ctm");
 	}
 	
-	public void generateTexture() {
-		if(this.source == null) {
-			System.out.println("sourece is NULL");
+	public void generateTexture() {//only for glass
+		if(this.source == null || this.source.getWidth() == 0 || this.source.getHeight() == 0) {
+			System.out.println("source is NULL");
 			return;
 		}
-		BufferedImage texture = new BufferedImage(Generator.SIZE*2,Generator.SIZE*2,
+		//offset
+		if(this.source.getHeight() != this.source.getWidth()) {
+			System.out.println("[" + this.sourceName + "] do not have a equal height and width.");
+			return;
+		}
+		int size = this.source.getHeight();
+		BufferedImage texture = new BufferedImage(size*2,size*2,
 				BufferedImage.TYPE_4BYTE_ABGR);
-		int backgroundRGB = this.source.getRGB(1, 1);
-		for(int x = 0; x<Generator.SIZE*2; x++) {
-			for(int y = 0; y<Generator.SIZE*2; y++) {
-				int sourcePix = this.source.getRGB(x%Generator.SIZE, y%Generator.SIZE);
+		int backgroundRGB = this.source.getRGB(size/2, size/2);
+		for(int x = 0; x<size*2; x++) {
+			for(int y = 0; y<size*2; y++) {
+				int sourcePix = this.source.getRGB(x%size, y%size);
 				byte edgeMaskPix = (byte)this.edgeMask.getRGB(x, y);
 				byte centerMaskPix = (byte)this.centerMask.getRGB(x, y);
 				if(edgeMaskPix == 0 && centerMaskPix == 0) {
@@ -66,7 +72,6 @@ public class Generator {
 				}
 			}
 		}
-		//System.out.println(OUTPUT_PATH + "ct/" + this.sourceName + "_ctm.png");
 		this.writeImage(texture, OUTPUT_PATH + "ct/" + this.sourceName + "_ctm.png");
 		this.writeJSON(this.json, OUTPUT_PATH + "json/" + this.sourceName + ".png.mcmeta");
 	}
