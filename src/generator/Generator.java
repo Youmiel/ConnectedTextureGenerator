@@ -44,7 +44,7 @@ public class Generator {
 		if(this.source.getHeight() != this.source.getWidth()) {
 			System.out.println("[" + this.sourceName + "] do not have a equal height and width.");
 			return;
-		}
+		} 
 		int size = this.source.getHeight();
 		BufferedImage texture = new BufferedImage(size*2,size*2,
 				BufferedImage.TYPE_4BYTE_ABGR);
