@@ -1,22 +1,11 @@
 package generator;
-import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.regex.MatchResult;
-import java.util.regex.Matcher;
-
 import javax.imageio.ImageIO;
-
-import com.alibaba.fastjson.JSON;
 
 public class Generator {
 	BufferedImage edgeMask;
@@ -32,8 +21,8 @@ public class Generator {
 	protected static final String OUTPUT_PATH = "resources/output/";
 	
 	public Generator() {
-		edgeMask = this.loadImage("resources/edgeMask.png");
-		centerMask = this.loadImage("resources/centerMask.png");
+		edgeMask = SourceIO.loadImage("resources/edgeMask.png");
+		centerMask = SourceIO.loadImage("resources/centerMask.png");
 		//System.out.println((byte)this.edgeMask.getRGB(0, 0));
 		//System.out.println((byte)this.edgeMask.getRGB(16, 16));
 		new File(OUTPUT_PATH + "ct/").mkdirs();
@@ -41,7 +30,7 @@ public class Generator {
 	}
 	
 	public void setSource(String imagePath, String sourceName) {
-		this.source = this.loadImage(imagePath);
+		this.source = SourceIO.loadImage(imagePath);
 		this.sourceName = sourceName;
 		this.json.setTexture(TEXTURE_PATH + sourceName + "_ctm");
 	}
@@ -72,43 +61,8 @@ public class Generator {
 				}
 			}
 		}
-		this.writeImage(texture, OUTPUT_PATH + "ct/" + this.sourceName + "_ctm.png");
-		this.writeJSON(this.json, OUTPUT_PATH + "json/" + this.sourceName + ".png.mcmeta");
-	}
-	
-	public BufferedImage loadImage(String filePath) {
-        File file = new File(filePath);
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
-	}
-	
-	public void writeImage(BufferedImage image, String filePath){
-        String postfix = filePath.substring(filePath.indexOf('.')+1);
-        try {
-        	File imgFile = new File(filePath);
-        	if (!imgFile.exists()) {
-        		imgFile.createNewFile();
-        		}
-            ImageIO.write(image,postfix,imgFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-	
-	public void writeJSON(CTMGlassForJSON object, String filePath) {
-		try {
-			BufferedWriter outFile = new BufferedWriter(new FileWriter(filePath,false));
-			outFile.write(JSON.toJSONString(object));
-			outFile.flush();
-			outFile.close();
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
+		SourceIO.writeImage(texture, OUTPUT_PATH + "ct/" + this.sourceName + "_ctm.png");
+		SourceIO.writeJSON(this.json, OUTPUT_PATH + "json/" + this.sourceName + ".png.mcmeta");
 	}
 	
 	public static void main(String[] args) {
