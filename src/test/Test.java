@@ -6,8 +6,10 @@ import generator.mask.Masks;
 import mcmeta.BaseCTMJSON;
 import mcmeta.CTMGlassJSON;
 import mcmeta.CTMGlassPaneJSON;
+import sun.tools.tree.BitAndExpression;
 
 public class Test {
+
 	public static void testJSON() {
 		BaseCTMJSON json = new BaseCTMJSON();
 		System.out.println(JSON.toJSONString(json));
@@ -17,6 +19,9 @@ public class Test {
 		
 		CTMGlassPaneJSON json3 = new CTMGlassPaneJSON();
 		System.out.println(JSON.toJSONString(json3));
+		
+		Object json4 = (Object)new CTMGlassPaneJSON();
+		System.out.println(JSON.toJSONString(json4));
 	}
 	
 	public static void testMask() {
@@ -32,6 +37,7 @@ public class Test {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		testMask();
+		byte b = (byte)255;
+		System.out.print(Integer.toBinaryString((int)b));
 	}
 }

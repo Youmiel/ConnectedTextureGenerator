@@ -1,19 +1,12 @@
 package generator;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.util.Random;
 import java.util.function.Function;
-
-import javax.imageio.ImageIO;
 
 import generator.mask.Mask;
 import generator.mask.Masks;
 import generator.processor.ClassicProcessor;
-import mcmeta.CTMGlassJSON;
+import mcmeta.BaseCTMJSON;
 
 public class Generator {
 	//BufferedImage edgeMask;
@@ -22,7 +15,7 @@ public class Generator {
 	Function<BufferedImage,BufferedImage> processor = new ClassicProcessor();
 	BufferedImage source;
 	String sourceName;
-	CTMGlassJSON json = new CTMGlassJSON();
+	BaseCTMJSON json = (BaseCTMJSON)new BaseCTMJSON();
 	
 	//protected static final byte SIZE = 16;
 	
@@ -38,18 +31,11 @@ public class Generator {
 		new File(OUTPUT_PATH + "json/").mkdirs();
 	}
 	
-	public void setSource(String imagePath, String sourceName) {
-		this.source = SourceIO.loadImage(imagePath);
-		this.sourceName = sourceName;
-		this.json.setTexture(TEXTURE_PATH + sourceName + "_ctm");
-	}
-	
-	public void generateTexture() {//only for glass
+	public void generateTexture() {//now support custom processor
 		if(this.source == null || this.source.getWidth() == 0 || this.source.getHeight() == 0) {
 			System.out.println("source is NULL");
 			return;
 		}
-		//offset
 		if(this.source.getHeight() != this.source.getWidth()) {
 			System.out.println("[" + this.sourceName + "] do not have a equal height and width.");
 			return;
@@ -58,5 +44,20 @@ public class Generator {
 		SourceIO.writeImage(texture, OUTPUT_PATH + "ct/" + this.sourceName + "_ctm.png");
 		SourceIO.writeJSON(this.json, OUTPUT_PATH + "json/" + this.sourceName + ".png.mcmeta");
 	}
-
+	
+	public void setSource(String imagePath, String sourceName) {
+		this.source = SourceIO.loadImage(imagePath);
+		this.sourceName = sourceName;
+		this.json.setTexture(TEXTURE_PATH + sourceName + "_ctm");
+	}
+	
+	public Generator setProcessor(Function<BufferedImage, BufferedImage> processor) {
+		this.processor = processor;
+		return this;
+	}
+	
+	public Generator setJSONObject(BaseCTMJSON json) {
+		this.json = json;
+		return this;
+	}
 }

@@ -3,6 +3,10 @@ package generator;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import generator.processor.QuadCopyProcessor;
+import generator.processor.TransparencyProcessor;
+import mcmeta.CTMGlassJSON;
+
 public class Main {
 	protected static final String INPUT_PATH = "resources/input/";
 
@@ -14,7 +18,11 @@ public class Main {
 				return name.toLowerCase().endsWith(".png");
 			}
 		});
-		Generator gen = new Generator();
+		Generator gen = (new Generator())
+				.setJSONObject(new CTMGlassJSON())
+				.setProcessor(
+						(new QuadCopyProcessor()).andThen(new TransparencyProcessor(5))
+						);
 		for(int i = 0; i<fileList.length; i++) {
 			String fileName = fileList[i].getName();
 			String name = fileName.substring(0,fileName.indexOf('.'));

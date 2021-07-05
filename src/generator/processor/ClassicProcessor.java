@@ -1,14 +1,13 @@
 package generator.processor;
 
 import java.awt.image.BufferedImage;
-import java.util.function.Function;
-
 import generator.mask.Mask;
 import generator.mask.Masks;
 
-public final class ClassicProcessor implements Function<BufferedImage,BufferedImage>{
+public class ClassicProcessor extends BaseProcessor{
 	Mask mask = Masks.CLASSIC_EDGE;
 	
+	@Override
 	public BufferedImage apply(BufferedImage source) {
 		int size = source.getHeight();
 		BufferedImage output = new BufferedImage(size*2,size*2,
