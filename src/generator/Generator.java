@@ -7,17 +7,18 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import mcmeta.CTMGlassJSON;
+
 public class Generator {
 	BufferedImage edgeMask;
 	BufferedImage centerMask;
 	BufferedImage source;
 	String sourceName;
-	CTMGlassForJSON json = new CTMGlassForJSON();
+	CTMGlassJSON json = new CTMGlassJSON();
 	
 	//protected static final byte SIZE = 16;
 	
 	protected static final String TEXTURE_PATH = "block/ctm/";
-	protected static final String INPUT_PATH = "resources/input/";
 	protected static final String OUTPUT_PATH = "resources/output/";
 	
 	public Generator() {

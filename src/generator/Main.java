@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 public class Main {
+	protected static final String INPUT_PATH = "resources/input/";
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

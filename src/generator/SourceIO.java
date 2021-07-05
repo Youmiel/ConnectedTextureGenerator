@@ -10,6 +10,8 @@ import javax.imageio.ImageIO;
 
 import com.alibaba.fastjson.JSON;
 
+import mcmeta.CTMGlassJSON;
+
 public class SourceIO {
 	public static BufferedImage loadImage(String filePath) {
         File file = new File(filePath);
@@ -34,7 +36,7 @@ public class SourceIO {
             e.printStackTrace();
         }
     }
-	public static void writeJSON(CTMGlassForJSON object, String filePath) {
+	public static void writeJSON(CTMGlassJSON object, String filePath) {
 		try {
 			BufferedWriter outFile = new BufferedWriter(new FileWriter(filePath,false));
 			outFile.write(JSON.toJSONString(object));
