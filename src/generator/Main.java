@@ -21,7 +21,7 @@ public class Main {
 		Generator gen = (new Generator())
 				.setJSONObject(new CTMGlassJSON())
 				.setProcessor(
-						(new QuadCopyProcessor()).andThen(new TransparencyProcessor(5))
+						(new QuadCopyProcessor()).andThen(new TransparencyProcessor(50))
 						);
 		for(int i = 0; i<fileList.length; i++) {
 			String fileName = fileList[i].getName();

@@ -25,7 +25,7 @@ public class TransparencyProcessor extends BaseProcessor{
 				int pix = source.getRGB(x%size, y%size);
 				byte alpha = (byte) (pix >> 24);
 				alpha = (byte)Math.min(255, (alpha * ((double)this.transparency/100)));
-				alpha = (byte)Math.max(alpha,1);
+				alpha = (alpha==0)? 1:alpha;
 				pix = (pix & 0x00FFFFFF) + (alpha << 24);
 				output.setRGB(x,y,pix);
 			}

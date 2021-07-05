@@ -6,7 +6,6 @@ import generator.mask.Masks;
 import mcmeta.BaseCTMJSON;
 import mcmeta.CTMGlassJSON;
 import mcmeta.CTMGlassPaneJSON;
-import sun.tools.tree.BitAndExpression;
 
 public class Test {
 
