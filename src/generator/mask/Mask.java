@@ -1,11 +1,13 @@
-package mask;
+package generator.mask;
 
 import java.util.HashSet;
 import java.util.Iterator;
 
 public class Mask {
 	HashSet<Rectangle> rects;
+	boolean invert = false;
 	int size = 1;
+	
 	
 	Mask(){
 		this.rects = new HashSet<Rectangle>();
@@ -13,6 +15,7 @@ public class Mask {
 	Mask(int size){
 		if(size > 0) 
 			this.size = size;
+		this.rects = new HashSet<Rectangle>();
 	}
 	Mask(Mask mask){
 		this.rects = mask.getRects();
@@ -38,17 +41,28 @@ public class Mask {
 		Iterator<Rectangle> i = this.rects.iterator();
 		while(i.hasNext()) {
 			if(i.next().insideRect(x,y)) { 
-				return true;
+				return (true ^ this.invert);
 			}
 		}
-		return false;
+		return (false ^ this.invert);
 	}
 	
-	public void setSize(int size) {
+	public Mask setSize(int size) {
 		this.size = size;
+		return this;
 	}
 	
 	public int getSize() {
-		return size;
+		return this.size;
 	}
+	
+	public Mask setInvert(boolean b) {
+		this.invert = b;
+		return this;
+	}
+	
+	public boolean isInvert() {
+		return this.invert;		
+	}
+
 }

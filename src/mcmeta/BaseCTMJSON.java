@@ -2,9 +2,6 @@ package mcmeta;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-import mcmeta.CTMGlassJSON.CTMContent;
-import mcmeta.CTMGlassJSON.CTMContent.ExtraField;
-
 public class BaseCTMJSON {
 
 	  @JSONField(name = "__comment", ordinal = 1)

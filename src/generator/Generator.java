@@ -5,13 +5,18 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.Random;
+
 import javax.imageio.ImageIO;
 
+import generator.mask.Mask;
+import generator.mask.Masks;
 import mcmeta.CTMGlassJSON;
 
 public class Generator {
-	BufferedImage edgeMask;
-	BufferedImage centerMask;
+	//BufferedImage edgeMask;
+	//BufferedImage centerMask;
+	Mask mask = Masks.CLASSIC_EDGE;
 	BufferedImage source;
 	String sourceName;
 	CTMGlassJSON json = new CTMGlassJSON();
@@ -22,8 +27,8 @@ public class Generator {
 	protected static final String OUTPUT_PATH = "resources/output/";
 	
 	public Generator() {
-		edgeMask = SourceIO.loadImage("resources/edgeMask.png");
-		centerMask = SourceIO.loadImage("resources/centerMask.png");
+		//edgeMask = SourceIO.loadImage("resources/edgeMask.png");
+		//centerMask = SourceIO.loadImage("resources/centerMask.png");
 		//System.out.println((byte)this.edgeMask.getRGB(0, 0));
 		//System.out.println((byte)this.edgeMask.getRGB(16, 16));
 		new File(OUTPUT_PATH + "ct/").mkdirs();
@@ -53,12 +58,10 @@ public class Generator {
 		for(int x = 0; x<size*2; x++) {
 			for(int y = 0; y<size*2; y++) {
 				int sourcePix = this.source.getRGB(x%size, y%size);
-				byte edgeMaskPix = (byte)this.edgeMask.getRGB(x, y);
-				byte centerMaskPix = (byte)this.centerMask.getRGB(x, y);
-				if(edgeMaskPix == 0 && centerMaskPix == 0) {
-					texture.setRGB(x, y, backgroundRGB);
-				}else {
+				if(this.mask.isMask((x+0.5)/(size*2),(y+0.5)/(size*2))) {
 					texture.setRGB(x,y,sourcePix);
+				}else {
+					texture.setRGB(x, y, backgroundRGB);
 				}
 			}
 		}

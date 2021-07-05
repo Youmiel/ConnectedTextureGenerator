@@ -1,4 +1,4 @@
-package mask;
+package generator.mask;
 
 public final class Rectangle {
 	static final Rectangle DEFAULT_RECT = new Rectangle(0,0,0,0);
