@@ -6,17 +6,20 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Random;
+import java.util.function.Function;
 
 import javax.imageio.ImageIO;
 
 import generator.mask.Mask;
 import generator.mask.Masks;
+import generator.processor.ClassicProcessor;
 import mcmeta.CTMGlassJSON;
 
 public class Generator {
 	//BufferedImage edgeMask;
 	//BufferedImage centerMask;
 	Mask mask = Masks.CLASSIC_EDGE;
+	Function<BufferedImage,BufferedImage> processor = new ClassicProcessor();
 	BufferedImage source;
 	String sourceName;
 	CTMGlassJSON json = new CTMGlassJSON();
@@ -51,20 +54,7 @@ public class Generator {
 			System.out.println("[" + this.sourceName + "] do not have a equal height and width.");
 			return;
 		} 
-		int size = this.source.getHeight();
-		BufferedImage texture = new BufferedImage(size*2,size*2,
-				BufferedImage.TYPE_4BYTE_ABGR);
-		int backgroundRGB = this.source.getRGB(size/2, size/2);
-		for(int x = 0; x<size*2; x++) {
-			for(int y = 0; y<size*2; y++) {
-				int sourcePix = this.source.getRGB(x%size, y%size);
-				if(this.mask.isMask((x+0.5)/(size*2),(y+0.5)/(size*2))) {
-					texture.setRGB(x,y,sourcePix);
-				}else {
-					texture.setRGB(x, y, backgroundRGB);
-				}
-			}
-		}
+		BufferedImage texture = this.processor.apply(source);
 		SourceIO.writeImage(texture, OUTPUT_PATH + "ct/" + this.sourceName + "_ctm.png");
 		SourceIO.writeJSON(this.json, OUTPUT_PATH + "json/" + this.sourceName + ".png.mcmeta");
 	}
