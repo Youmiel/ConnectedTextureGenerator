@@ -26,11 +26,15 @@ public class BaseCTMJSON {
 		  public ExtraField extra = new ExtraField();
 		  class ExtraField{
 			  @JSONField(name = "ignore_states", ordinal = 1)
-			  public boolean igore_states = true;
+			  public boolean igore_states = false;
+		  }
+		  
+		  public void setTexture(String texturePath) {
+			  this.textures[0] = "minecraft:" + texturePath;
 		  }
 	  }
 	  
 	  public void setTexture(String texturePath) {
-		  this.ctm.textures[0] = "minecraft:" + texturePath;
+		  this.ctm.setTexture(texturePath);
 	  }
 }

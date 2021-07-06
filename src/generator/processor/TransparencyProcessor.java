@@ -20,17 +20,22 @@ public class TransparencyProcessor extends BaseProcessor{
 				BufferedImage.TYPE_4BYTE_ABGR);
 		if(this.transparency == 0)
 			return output;
-		for(int x = 0; x<size; x++) {
-			for(int y = 0; y<size; y++) {
+		for(int x = 8; x<size; x++) {
+			for(int y = 8; y<size; y++) {
 				int pix = source.getRGB(x%size, y%size);
-				byte alpha = (byte) (pix >> 24);
-				alpha = (byte)Math.min(255, (alpha * ((double)this.transparency/100)));
+				char alpha = (char) ((pix >> 24) & 0x000000FF);
+				if(alpha == 0) {
+					output.setRGB(x,y,pix);
+					continue;
+					}
+				alpha = (char)Math.min(255, (alpha * ((double)this.transparency/100)));
 				alpha = (alpha==0)? 1:alpha;
 				pix = (pix & 0x00FFFFFF) + (alpha << 24);
 				output.setRGB(x,y,pix);
 			}
 		}
-		System.out.print(Integer.toHexString((int)output.getRGB(1, 1)));
+		System.out.print(Integer.toHexString((int)source.getRGB(8, 8))+" ");
+		System.out.print(Integer.toHexString((int)output.getRGB(8, 8)));
 		return output;
 	}
 }
