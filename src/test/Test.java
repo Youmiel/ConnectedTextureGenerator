@@ -6,6 +6,7 @@ import generator.mask.Masks;
 import mcmeta.BaseCTMJSON;
 import mcmeta.CTMGlassJSON;
 import mcmeta.CTMGlassPaneJSON;
+import mcmeta.GlassModel;
 
 public class Test {
 
@@ -21,6 +22,9 @@ public class Test {
 		
 		Object json4 = (Object)new CTMGlassPaneJSON();
 		System.out.println(JSON.toJSONString(json4));
+
+		GlassModel json5 = new GlassModel();
+		System.out.println(JSON.toJSONString(json5));
 	}
 	
 	public static void testMask() {
@@ -35,8 +39,14 @@ public class Test {
 	}
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		byte b = (byte)255;
-		System.out.print(Integer.toBinaryString((int)b));
+		//byte b = (byte)255;
+		//System.out.print(Integer.toBinaryString((int)b));
+
+		testJSON();
+		/*
+		for(String s : args){
+			System.out.println(s);
+		}
+		*/
 	}
 }

@@ -7,6 +7,7 @@ import generator.mask.Mask;
 import generator.mask.Masks;
 import generator.processor.ClassicProcessor;
 import mcmeta.BaseCTMJSON;
+import mcmeta.TextureJSON;
 
 public class Generator {
 	//BufferedImage edgeMask;
@@ -15,7 +16,7 @@ public class Generator {
 	Function<BufferedImage,BufferedImage> processor = new ClassicProcessor();
 	BufferedImage source;
 	String sourceName;
-	BaseCTMJSON json = (BaseCTMJSON)new BaseCTMJSON();
+	TextureJSON json = new BaseCTMJSON();
 	
 	//protected static final byte SIZE = 16;
 	
@@ -56,7 +57,7 @@ public class Generator {
 		return this;
 	}
 	
-	public Generator setJSONObject(BaseCTMJSON json) {
+	public Generator setJSONObject(TextureJSON json) {
 		this.json = json;
 		return this;
 	}

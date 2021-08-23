@@ -1,5 +1,5 @@
 package mcmeta;
-import com.alibaba.fastjson.annotation.JSONField;
+
 
 public class CTMGlassJSON extends BaseCTMJSON{
 	public CTMGlassJSON(){

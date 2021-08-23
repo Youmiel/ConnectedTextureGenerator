@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import com.alibaba.fastjson.JSON;
 
-import mcmeta.BaseCTMJSON;
+import mcmeta.TextureJSON;
 
 public class SourceIO {
 	public static BufferedImage loadImage(String filePath) {
@@ -36,7 +36,7 @@ public class SourceIO {
             e.printStackTrace();
         }
     }
-	public static void writeJSON(BaseCTMJSON object, String filePath) {
+	public static void writeJSON(TextureJSON object, String filePath) {
 		try {
 			BufferedWriter outFile = new BufferedWriter(new FileWriter(filePath,false));
 			outFile.write(JSON.toJSONString(object));

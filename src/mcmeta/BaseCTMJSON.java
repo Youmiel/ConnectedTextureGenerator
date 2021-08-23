@@ -2,7 +2,7 @@ package mcmeta;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class BaseCTMJSON {
+public class BaseCTMJSON implements TextureJSON{
 
 	  @JSONField(name = "__comment", ordinal = 1)
 	  public String comment = "Generated from CTMGlassGenerator by Youmiel";
@@ -27,6 +27,9 @@ public class BaseCTMJSON {
 		  class ExtraField{
 			  @JSONField(name = "ignore_states", ordinal = 1)
 			  public boolean igore_states = false;
+
+			  @JSONField(name = "connect_inside", ordinal = 2)
+			  public boolean connect_inside = false;
 		  }
 		  
 		  public void setTexture(String texturePath) {
